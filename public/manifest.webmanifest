@@ -1,0 +1,17 @@
+{
+  "name": "Nostr Social Client",
+  "short_name": "Nostr Social",
+  "description": "A modern Nostr social client for browsing notes, pictures, and connecting with the decentralized social network.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
