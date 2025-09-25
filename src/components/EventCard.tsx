@@ -14,6 +14,7 @@ import { useZaps } from '@/hooks/useZaps';
 import { useWallet } from '@/hooks/useWallet';
 import { nip19 } from 'nostr-tools';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface EventCardProps {
   event: NostrEvent;
@@ -26,10 +27,11 @@ export function EventCard({ event, showFullContent = false, className = '' }: Ev
   const { webln, activeNWC } = useWallet();
   const { totalSats, isLoading: zapLoading } = useZaps([event], webln, activeNWC);
   const [showMore, setShowMore] = useState(showFullContent);
+  const isMobile = useIsMobile();
 
   const metadata = author?.metadata;
-  const displayName = metadata?.name || genUserName(event.pubkey);
-  const username = metadata?.name ? `@${metadata.name}` : genUserName(event.pubkey);
+  let displayName = metadata?.name || genUserName(event.pubkey);
+  let username = metadata?.name ? `@${metadata.name}` : genUserName(event.pubkey);
   const avatar = metadata?.picture;
   const timeAgo = formatDistanceToNow(new Date(event.created_at * 1000), { addSuffix: true });
 
@@ -46,6 +48,18 @@ export function EventCard({ event, showFullContent = false, className = '' }: Ev
   const displayContent = shouldTruncate && !showMore 
     ? event.content.slice(0, 280) + '...' 
     : event.content;
+
+  // Check if display name should be truncated
+  const shouldTruncateDisplayName = displayName.length > 15 && isMobile;
+  displayName = shouldTruncateDisplayName 
+    ? displayName.slice(0, 12) + '...' 
+    : displayName;
+
+  // Check if username should be truncated
+  const shouldTruncateUsername = username.length > 15 && isMobile;
+  username = shouldTruncateUsername 
+    ? username.slice(0, 12) + '...' 
+    : username;
 
   // Extract title for Kind 20 events
   const title = event.kind === 20 ? event.tags.find(tag => tag[0] === 'title')?.[1] : undefined;
