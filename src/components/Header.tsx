@@ -19,6 +19,7 @@ import {
 import { useLoginActions } from '@/hooks/useLoginActions';
 import { useTheme } from '@/hooks/useTheme';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Navigation } from '@/components/Navigation';
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -72,6 +73,12 @@ export function Header() {
       <div className="container flex h-14 items-center justify-between">
         {/* Logo area - grows on mobile to push controls to the right */}
         <div className="flex-1 md:flex-initial">
+          {/* App logo/name */}
+        </div>
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:block">
+          <Navigation />
         </div>
 
         {/* Main controls area */}
@@ -139,6 +146,11 @@ export function Header() {
       {/* Mobile relay selector - visible only on small screens */}
       <div className="container md:hidden pb-2">
         <RelaySelector className="w-full" />
+      </div>
+      
+      {/* Mobile Navigation - visible only on small screens */}
+      <div className="md:hidden">
+        <Navigation />
       </div>
     </header>
   );
