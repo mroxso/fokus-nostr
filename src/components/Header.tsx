@@ -7,7 +7,7 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { genUserName } from '@/lib/genUserName';
 import { nip19 } from 'nostr-tools';
-import { Settings, Edit, LogOut } from 'lucide-react';
+import { Settings, Edit, LogOut, Moon, Sun, Monitor } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,47 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useLoginActions } from '@/hooks/useLoginActions';
+import { useTheme } from '@/hooks/useTheme';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <div className="flex items-center">
+      <div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              {theme === 'light' ? (
+                <Sun className="h-5 w-5" />
+              ) : theme === 'dark' ? (
+                <Moon className="h-5 w-5" />
+              ) : (
+                <Monitor className="h-5 w-5" />
+              )}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme('light')}>
+              <Sun className="mr-2 h-4 w-4" />
+              <span>Light</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme('dark')}>
+              <Moon className="mr-2 h-4 w-4" />
+              <span>Dark</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme('system')}>
+              <Monitor className="mr-2 h-4 w-4" />
+              <span>System</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  );
+}
 
 export function Header() {
   const { user, metadata } = useCurrentUser();
@@ -29,21 +70,23 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center space-x-2">
-            <h1 className="text-xl font-bold">Nostr Social</h1>
-          </Link>
+        {/* Logo area - grows on mobile to push controls to the right */}
+        <div className="flex-1 md:flex-initial">
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Main controls area */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Theme toggle */}
+          <ThemeToggle />
+
           {/* Compose button for logged in users */}
           {user && (
             <ComposeDialog />
           )}
-          
-          {/* Relay Selector */}
-          <RelaySelector className="w-48 hidden sm:flex" />
-          
+
+          {/* Relay Selector - hidden on mobile, shown in its own row */}
+          <RelaySelector className="w-48 hidden md:flex" />
+
           {/* Auth Area */}
           {user ? (
             <DropdownMenu>
@@ -92,9 +135,9 @@ export function Header() {
           )}
         </div>
       </div>
-      
-      {/* Mobile relay selector */}
-      <div className="container sm:hidden pb-2">
+
+      {/* Mobile relay selector - visible only on small screens */}
+      <div className="container md:hidden pb-2">
         <RelaySelector className="w-full" />
       </div>
     </header>
