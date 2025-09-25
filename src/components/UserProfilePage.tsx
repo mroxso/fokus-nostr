@@ -50,7 +50,6 @@ export function UserProfilePage({ pubkey }: UserProfilePageProps) {
   if (authorLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <main className="container mx-auto py-6 px-4">
           <div className="max-w-2xl mx-auto">
             <Skeleton className="h-10 w-32 mb-6" />
@@ -63,7 +62,6 @@ export function UserProfilePage({ pubkey }: UserProfilePageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <main className="container mx-auto py-6 px-4">
         <div className="max-w-2xl mx-auto">
           <Link to="/">

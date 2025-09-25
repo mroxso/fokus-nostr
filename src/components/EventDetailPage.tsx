@@ -27,7 +27,6 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <main className="container mx-auto py-6 px-4">
           <div className="max-w-2xl mx-auto">
             <Skeleton className="h-10 w-32 mb-6" />
@@ -41,7 +40,6 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
   if (error || !event) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <main className="container mx-auto py-6 px-4">
           <div className="max-w-2xl mx-auto">
             <Link to="/">
@@ -63,7 +61,6 @@ export function EventDetailPage({ eventId }: EventDetailPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <main className="container mx-auto py-6 px-4">
         <div className="max-w-2xl mx-auto">
           <Link to="/">

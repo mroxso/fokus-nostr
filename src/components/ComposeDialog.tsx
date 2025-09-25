@@ -69,22 +69,23 @@ export function ComposeDialog({ onSuccess }: ComposeDialogProps) {
   };
 
   if (!user) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <PenSquare className="h-5 w-5" />
-            Create a Post
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground mb-4">
-            Sign in to share your thoughts with the Nostr network.
-          </p>
-          <LoginArea className="flex justify-center" />
-        </CardContent>
-      </Card>
-    );
+    // return (
+    //   <Card>
+    //     <CardHeader>
+    //       <CardTitle className="flex items-center gap-2">
+    //         <PenSquare className="h-5 w-5" />
+    //         Create a Post
+    //       </CardTitle>
+    //     </CardHeader>
+    //     <CardContent>
+    //       <p className="text-muted-foreground mb-4">
+    //         Sign in to share your thoughts with the Nostr network.
+    //       </p>
+    //       <LoginArea className="flex justify-center" />
+    //     </CardContent>
+    //   </Card>
+    // );
+    return;
   }
 
   return (
